@@ -22,6 +22,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         // Do any additional setup after loading the view.
         
+        //Setting transparency initially
+        
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -128,17 +130,39 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+
+        cell.posterView.alpha = 0.0
+        cell.titleLabel.alpha = 0.0
+        cell.overviewLabel.alpha = 0.0
+        cell.ratingLabel.alpha = 0.0
+
         
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let posterPath = movie["poster_path"] as! String
+        let rating = movie["vote_average"] as! Double
         
         let baseURL = "https://image.tmdb.org/t/p/w342"
         let posterURL = NSURL(string: baseURL + posterPath)
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
+        cell.ratingLabel.text = String(format: "%.2f", rating)
+        
+        UIView.animateWithDuration(0.5, delay: 0.2, options: .CurveEaseOut, animations:
+            {
+                cell.posterView.alpha = 1.0
+                cell.titleLabel.alpha = 1.0
+                cell.overviewLabel.alpha = 1.0
+                cell.ratingLabel.alpha = 1.0
+            },
+            completion:
+            {
+                (finished:Bool) in
+            }
+        )
+        
         cell.posterView.setImageWithURL(posterURL!)
         
         //print("row \(indexPath.row)")
