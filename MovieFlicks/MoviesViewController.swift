@@ -14,6 +14,7 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nwerrorView: UIView!
     
     var movies: [NSDictionary]?
     var data: NSArray = []
@@ -25,12 +26,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Do any additional setup after loading the view.
         
         self.tableView.rowHeight = 140.0
+
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         
+        self.nwerrorView.hidden = true
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -65,10 +68,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             
                     }
                 } else {
-                    let alert = UIAlertController(title: nil, message: "Network Error", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
-                    self.presentViewController(alert,animated: true,completion: nil)
+                    self.nwerrorView.hidden = false
+                    self.tableView.hidden = true
                 }
+
                 // Reload the tableView now that there is new data
                 self.tableView.reloadData()
                 
