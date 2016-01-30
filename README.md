@@ -1,6 +1,6 @@
 # Project 1 - *Movie Flicks*
 
-[logo]: ./AppIcon.png "Movie Flicks App Icon"
+<img src="https://github.com/audip/MovieFlicks/blob/master/AppIcon.png" width="150" height="150" alt="Movie Flicks App Icon" />
 
 **Movie Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
