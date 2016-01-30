@@ -64,6 +64,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             self.movies = responseDictionary["results"] as! [NSDictionary]
                             
                     }
+                } else {
+                    let alert = UIAlertController(title: nil, message: "Network Error", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
+                    self.presentViewController(alert,animated: true,completion: nil)
                 }
                 // Reload the tableView now that there is new data
                 self.tableView.reloadData()
