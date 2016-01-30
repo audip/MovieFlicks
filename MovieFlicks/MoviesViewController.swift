@@ -18,7 +18,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     var movies: [NSDictionary]?
     var data: NSArray = []
     var defaults = NSUserDefaults.standardUserDefaults()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,6 +133,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
 
+        print(indexPath.row)
+
         cell.posterView.alpha = 0.0
         cell.titleLabel.alpha = 0.0
         cell.overviewLabel.alpha = 0.0
@@ -141,12 +142,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.yearLabel.alpha = 0.0
         
         let movie = movies![indexPath.row]
-        let title = movie["title"] as! String
+        let mTitle = movie["title"] as! String
         let overview = movie["overview"] as! String
         let rating = movie["vote_average"] as! Double
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let releaseDate = movie["release_date"] as! String
-        let backdropPath = movie["backdrop_path"] as! String
         
         if let posterPath = movie["poster_path"] as? String {
             let posterUrl = NSURL(string: baseUrl + posterPath)
@@ -158,21 +158,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             cell.posterView.image = nil
         }
         
-        if let backdropPath = backdropPath as? String {
-            let backdropURL = baseUrl + backdropPath
-        } else {
-            let backdropURL = "nil"
-        }
-
-        //Storing Data in NSUserDefaults to pass to the segue
-        defaults.setObject(title, forKey: "movie_title")
-        defaults.setObject(overview, forKey: "movie_overview")
-        defaults.setDouble(rating, forKey: "movie_rating")
-        defaults.setObject(backdropURL, forKey: "backdrop_url")
-        defaults.setObject(releaseDate, forKey: "release_date")
-        defaults.synchronize()
-        
-        cell.titleLabel.text = title
+        cell.titleLabel.text = mTitle
         cell.overviewLabel.text = overview
         cell.ratingLabel.text = String(format: "%.2f", rating)
         cell.yearLabel.text = releaseDate
@@ -193,6 +179,35 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         //print("row \(indexPath.row)")
         return cell
+    }
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        print(indexPath.row)
+        let movie = movies![indexPath.row]
+        let mTitle = movie["title"] as! String
+        let overview = movie["overview"] as! String
+        let rating = movie["vote_average"] as! Double
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
+        let releaseDate = movie["release_date"] as! String
+        let backdropPath = movie["backdrop_path"] as! String
+        
+        //print(movie)
+        
+        var backdropURL = ""
+        if let backdropPath = backdropPath as? String {
+            backdropURL = baseUrl + backdropPath
+        } else {
+            backdropURL = "nil"
+        }
+        
+        //Storing Data in NSUserDefaults to pass to the segue
+        defaults.setObject(mTitle, forKey: "movie_title")
+        defaults.setObject(overview, forKey: "movie_overview")
+        defaults.setDouble(rating, forKey: "movie_rating")
+        defaults.setObject(backdropURL, forKey: "backdrop_url")
+        defaults.setObject(releaseDate, forKey: "release_date")
+        defaults.synchronize()
+
     }
 
     /*

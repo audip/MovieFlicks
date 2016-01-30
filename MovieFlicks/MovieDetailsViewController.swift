@@ -22,19 +22,19 @@ class MovieDetailsViewController: UIViewController {
         
         super.viewDidLoad()
         
-        var title = defaults.objectForKey("movie_title") as! String
-        var overview = defaults.objectForKey("movie_overview") as! String
-        var releaseDate = defaults.objectForKey("release_date") as! String
-        var backdropURL = defaults.objectForKey("backdrop_url") as! String
-        var rating = defaults.doubleForKey("movie_rating")
+        let title = defaults.objectForKey("movie_title") as! String
+        let overview = defaults.objectForKey("movie_overview") as! String
+        let releaseDate = defaults.objectForKey("release_date") as! String
+        let backdropURL = defaults.objectForKey("backdrop_url") as! String
+        let rating = defaults.doubleForKey("movie_rating")
         
         overviewLabel.text = overview
         titleLabel.text = title
         yearLabel.text = releaseDate
         ratingLabel.text = String(format: "%.2f", rating)
         
-        if let backdropPath = backdropURL as? String {
-            let posterUrl = NSURL(string: backdropPath)
+        if backdropURL != "nil" {
+            let posterUrl = NSURL(string: backdropURL)
             backdropView.setImageWithURL(posterUrl!)
         }
         else {
