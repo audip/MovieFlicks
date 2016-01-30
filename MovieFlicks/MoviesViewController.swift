@@ -138,17 +138,18 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.titleLabel.alpha = 0.0
         cell.overviewLabel.alpha = 0.0
         cell.ratingLabel.alpha = 0.0
-
+        cell.yearLabel.alpha = 0.0
         
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let rating = movie["vote_average"] as! Double
-        
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
+        let releaseDate = movie["release_date"] as! String
+        let backdropPath = movie["backdrop_path"] as! String
         
         if let posterPath = movie["poster_path"] as? String {
-            let posterBaseUrl = "http://image.tmdb.org/t/p/w500"
-            let posterUrl = NSURL(string: posterBaseUrl + posterPath)
+            let posterUrl = NSURL(string: baseUrl + posterPath)
             cell.posterView.setImageWithURL(posterUrl!)
         }
         else {
@@ -157,17 +158,24 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             cell.posterView.image = nil
         }
         
-        let backdropBaseURL = ""
-        
+        if let backdropPath = backdropPath as? String {
+            let backdropURL = baseUrl + backdropPath
+        } else {
+            let backdropURL = "nil"
+        }
+
         //Storing Data in NSUserDefaults to pass to the segue
         defaults.setObject(title, forKey: "movie_title")
         defaults.setObject(overview, forKey: "movie_overview")
-        defaults.setObject(rating, forKey: "movie_rating")
+        defaults.setDouble(rating, forKey: "movie_rating")
+        defaults.setObject(backdropURL, forKey: "backdrop_url")
+        defaults.setObject(releaseDate, forKey: "release_date")
         defaults.synchronize()
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         cell.ratingLabel.text = String(format: "%.2f", rating)
+        cell.yearLabel.text = releaseDate
         
         UIView.animateWithDuration(0.5, delay: 0.2, options: .CurveEaseOut, animations:
             {
@@ -175,6 +183,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 cell.titleLabel.alpha = 1.0
                 cell.overviewLabel.alpha = 1.0
                 cell.ratingLabel.alpha = 1.0
+                cell.yearLabel.alpha = 1.0
             },
             completion:
             {
