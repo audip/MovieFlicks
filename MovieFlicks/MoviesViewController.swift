@@ -16,6 +16,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
+    var data: NSArray = []
+    var defaults = NSUserDefaults.standardUserDefaults()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,11 +143,27 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
-        let posterPath = movie["poster_path"] as! String
         let rating = movie["vote_average"] as! Double
         
-        let baseURL = "https://image.tmdb.org/t/p/w342"
-        let posterURL = NSURL(string: baseURL + posterPath)
+        
+        if let posterPath = movie["poster_path"] as? String {
+            let posterBaseUrl = "http://image.tmdb.org/t/p/w500"
+            let posterUrl = NSURL(string: posterBaseUrl + posterPath)
+            cell.posterView.setImageWithURL(posterUrl!)
+        }
+        else {
+            // No poster image. Can either set to nil (no image) or a default movie poster image
+            // that you include as an asset
+            cell.posterView.image = nil
+        }
+        
+        let backdropBaseURL = ""
+        
+        //Storing Data in NSUserDefaults to pass to the segue
+        defaults.setObject(title, forKey: "movie_title")
+        defaults.setObject(overview, forKey: "movie_overview")
+        defaults.setObject(rating, forKey: "movie_rating")
+        defaults.synchronize()
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
@@ -162,8 +181,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 (finished:Bool) in
             }
         )
-        
-        cell.posterView.setImageWithURL(posterURL!)
         
         //print("row \(indexPath.row)")
         return cell
