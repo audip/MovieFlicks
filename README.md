@@ -1,5 +1,7 @@
 # Project 1 - *Movie Flicks*
 
+[logo]: ./AppIcon.png "Movie Flicks App Icon"
+
 **Movie Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **5** hours spent in total
