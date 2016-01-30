@@ -24,7 +24,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         // Do any additional setup after loading the view.
         
-        //Setting transparency initially
+        self.tableView.rowHeight = 140.0
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -134,6 +134,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
 
         print(indexPath.row)
+        cell.tintColor = UIColor.whiteColor()
 
         cell.posterView.alpha = 0.0
         cell.titleLabel.alpha = 0.0
