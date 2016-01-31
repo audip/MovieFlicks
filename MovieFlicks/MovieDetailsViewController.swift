@@ -39,6 +39,8 @@ class MovieDetailsViewController: UIViewController {
         yearLabel.text = releaseDate
         ratingLabel.text = String(format: "%.2f", rating!)
         
+        overviewLabel.sizeToFit()
+        
         if let posterPath = movie["poster_path"] as? String {
             let posterUrl = NSURL(string: baseUrl + posterPath)
             backdropView.setImageWithURL(posterUrl!)
