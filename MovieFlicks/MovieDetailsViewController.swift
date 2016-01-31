@@ -15,6 +15,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var backdropView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var infoView: UIView!
     
     let defaults = NSUserDefaults.standardUserDefaults()
     
@@ -24,13 +26,8 @@ class MovieDetailsViewController: UIViewController {
         
         super.viewDidLoad()
         
-//        let title = defaults.objectForKey("movie_title") as! String
-//        let overview = defaults.objectForKey("movie_overview") as! String
-//        let releaseDate = defaults.objectForKey("release_date") as! String
-//        let backdropURL = defaults.objectForKey("backdrop_url") as! String
-//        let rating = defaults.doubleForKey("movie_rating")
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
-        //print(movie)
         let title = movie["title"] as? String
         let overview = movie["overview"] as? String
         let releaseDate = movie["release_date"] as? String
