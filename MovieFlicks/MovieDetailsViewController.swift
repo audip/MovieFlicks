@@ -18,23 +18,32 @@ class MovieDetailsViewController: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
     
+    var movie: NSDictionary!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        let title = defaults.objectForKey("movie_title") as! String
-        let overview = defaults.objectForKey("movie_overview") as! String
-        let releaseDate = defaults.objectForKey("release_date") as! String
-        let backdropURL = defaults.objectForKey("backdrop_url") as! String
-        let rating = defaults.doubleForKey("movie_rating")
+//        let title = defaults.objectForKey("movie_title") as! String
+//        let overview = defaults.objectForKey("movie_overview") as! String
+//        let releaseDate = defaults.objectForKey("release_date") as! String
+//        let backdropURL = defaults.objectForKey("backdrop_url") as! String
+//        let rating = defaults.doubleForKey("movie_rating")
+        
+        //print(movie)
+        let title = movie["title"] as? String
+        let overview = movie["overview"] as? String
+        let releaseDate = movie["release_date"] as? String
+        let rating = movie["vote_average"] as? Double
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
         
         overviewLabel.text = overview
         titleLabel.text = title
         yearLabel.text = releaseDate
-        ratingLabel.text = String(format: "%.2f", rating)
+        ratingLabel.text = String(format: "%.2f", rating!)
         
-        if backdropURL != "nil" {
-            let posterUrl = NSURL(string: backdropURL)
+        if let posterPath = movie["poster_path"] as? String {
+            let posterUrl = NSURL(string: baseUrl + posterPath)
             backdropView.setImageWithURL(posterUrl!)
         }
         else {

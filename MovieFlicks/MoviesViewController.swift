@@ -188,44 +188,51 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         //print("row \(indexPath.row)")
         return cell
     }
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        print(indexPath.row)
-        let movie = movies![indexPath.row]
-        let mTitle = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let rating = movie["vote_average"] as! Double
-        let baseUrl = "http://image.tmdb.org/t/p/w500"
-        let releaseDate = movie["release_date"] as! String
-        let backdropPath = movie["backdrop_path"] as! String
-        
-        //print(movie)
-        
-        var backdropURL = ""
-        if let backdropPath = backdropPath as? String {
-            backdropURL = baseUrl + backdropPath
-        } else {
-            backdropURL = "nil"
-        }
-        
-        //Storing Data in NSUserDefaults to pass to the segue
-        defaults.setObject(mTitle, forKey: "movie_title")
-        defaults.setObject(overview, forKey: "movie_overview")
-        defaults.setDouble(rating, forKey: "movie_rating")
-        defaults.setObject(backdropURL, forKey: "backdrop_url")
-        defaults.setObject(releaseDate, forKey: "release_date")
-        defaults.synchronize()
-
-    }
+//    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//        print(indexPath.row)
+//        let movie = movies![indexPath.row]
+//        let mTitle = movie["title"] as! String
+//        let overview = movie["overview"] as! String
+//        let rating = movie["vote_average"] as! Double
+//        let baseUrl = "http://image.tmdb.org/t/p/w500"
+//        let releaseDate = movie["release_date"] as! String
+//        let backdropPath = movie["backdrop_path"] as! String
+//        
+//        //print(movie)
+//        
+//        var backdropURL = ""
+//        if let backdropPath = backdropPath as? String {
+//            backdropURL = baseUrl + backdropPath
+//        } else {
+//            backdropURL = "nil"
+//        }
+//        
+//        //Storing Data in NSUserDefaults to pass to the segue
+//        defaults.setObject(mTitle, forKey: "movie_title")
+//        defaults.setObject(overview, forKey: "movie_overview")
+//        defaults.setDouble(rating, forKey: "movie_rating")
+//        defaults.setObject(backdropURL, forKey: "backdrop_url")
+//        defaults.setObject(releaseDate, forKey: "release_date")
+//        defaults.synchronize()
+//
+//    }
 
     /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based application, you will often want to do a little preparation before navigation */
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let movie = movies![indexPath!.row]
+        
+        let movieDetailsViewController = segue.destinationViewController as! MovieDetailsViewController
+        movieDetailsViewController.movie = movie
+        
     }
-    */
+
 
 }
