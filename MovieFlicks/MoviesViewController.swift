@@ -27,7 +27,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Do any additional setup after loading the view.
         
         self.tableView.rowHeight = 140.0
-
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -131,7 +130,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let movies = movies {
-            print(movies.count)
+            //print(movies.count)
             return movies.count
         } else {
             return 0
@@ -149,6 +148,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.overviewLabel.alpha = 0.0
         cell.ratingLabel.alpha = 0.0
         cell.yearLabel.alpha = 0.0
+        
+        // No color when the user selects cell
+        cell.selectionStyle = .None
+
         
         let movie = movies![indexPath.row]
         let mTitle = movie["title"] as! String
