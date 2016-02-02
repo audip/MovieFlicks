@@ -160,15 +160,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let releaseDate = movie["release_date"] as! String
         
-        if let posterPath = movie["poster_path"] as? String {
-            let posterUrl = NSURL(string: baseUrl + posterPath)
-            cell.posterView.setImageWithURL(posterUrl!)
-        }
-        else {
-            // No poster image. Can either set to nil (no image) or a default movie poster image
-            // that you include as an asset
-            cell.posterView.image = nil
-        }
+//        if let posterPath = movie["poster_path"] as? String {
+//            let posterUrl = NSURL(string: baseUrl + posterPath)
+//            cell.posterView.setImageWithURL(posterUrl!)
+//        }
+//        else {
+//            // No poster image. Can either set to nil (no image) or a default movie poster image
+//            // that you include as an asset
+//            cell.posterView.image = nil
+//        }
         
         cell.titleLabel.text = mTitle
         cell.overviewLabel.text = overview
@@ -177,7 +177,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         UIView.animateWithDuration(0.5, delay: 0.2, options: .CurveEaseOut, animations:
             {
-                cell.posterView.alpha = 1.0
+                //cell.posterView.alpha = 1.0
                 cell.titleLabel.alpha = 1.0
                 cell.overviewLabel.alpha = 1.0
                 cell.ratingLabel.alpha = 1.0
@@ -188,40 +188,42 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 (finished:Bool) in
             }
         )
+        if let posterPath = movie["poster_path"] as? String {
+            //let posterUrl = NSURL(string: baseUrl + posterPath)
+            //cell.posterView.setImageWithURL(posterUrl!)
+            let imageRequest = NSURLRequest(URL: NSURL(string: baseUrl + posterPath)!)
+
+            cell.posterView.setImageWithURLRequest(
+                imageRequest,
+                placeholderImage: nil,
+                success: { (imageRequest, imageResponse, image) -> Void in
+                
+                    // imageResponse will be nil if the image is cached
+                    if imageResponse != nil {
+                        print("Image was NOT cached, fade in image")
+                        cell.posterView.alpha = 0.0
+                        cell.posterView.image = image
+                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                            cell.posterView.alpha = 1.0
+                        })
+                    } else {
+                        print("Image was cached so just update the image")
+                        cell.posterView.image = image
+                    }
+                },
+                failure: { (imageRequest, imageResponse, error) -> Void in
+                    // do something for the failure condition
+            })
+
+        } else {
+                // No poster image. Can either set to nil (no image) or a default movie poster image
+                // that you include as an asset
+                cell.posterView.image = nil
+        }
         
         //print("row \(indexPath.row)")
         return cell
     }
-//    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-//        
-//        print(indexPath.row)
-//        let movie = movies![indexPath.row]
-//        let mTitle = movie["title"] as! String
-//        let overview = movie["overview"] as! String
-//        let rating = movie["vote_average"] as! Double
-//        let baseUrl = "http://image.tmdb.org/t/p/w500"
-//        let releaseDate = movie["release_date"] as! String
-//        let backdropPath = movie["backdrop_path"] as! String
-//        
-//        //print(movie)
-//        
-//        var backdropURL = ""
-//        if let backdropPath = backdropPath as? String {
-//            backdropURL = baseUrl + backdropPath
-//        } else {
-//            backdropURL = "nil"
-//        }
-//        
-//        //Storing Data in NSUserDefaults to pass to the segue
-//        defaults.setObject(mTitle, forKey: "movie_title")
-//        defaults.setObject(overview, forKey: "movie_overview")
-//        defaults.setDouble(rating, forKey: "movie_rating")
-//        defaults.setObject(backdropURL, forKey: "backdrop_url")
-//        defaults.setObject(releaseDate, forKey: "release_date")
-//        defaults.synchronize()
-//
-//    }
-
     /*
     // MARK: - Navigation
 
