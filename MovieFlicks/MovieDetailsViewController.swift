@@ -45,8 +45,8 @@ class MovieDetailsViewController: UIViewController {
             
             //let posterUrl = NSURL(string: baseUrl + posterPath)
             //backdropView.setImageWithURL(posterUrl!)
-            let smallBaseURL = "http://image.tmdb.org/t/p/w154"
-            let largeBaseURL = "http://image.tmdb.org/t/p/w500"
+            let smallBaseURL = "https://image.tmdb.org/t/p/w154"
+            let largeBaseURL = "https://image.tmdb.org/t/p/original"
             
             let smallImageRequest = NSURLRequest(URL: NSURL(string: smallBaseURL + posterPath)!)
             let largeImageRequest = NSURLRequest(URL: NSURL(string: largeBaseURL + posterPath)!)
