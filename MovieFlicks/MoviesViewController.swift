@@ -208,7 +208,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                         })
                     } else {
                         print("Image was cached so just update the image")
-                        cell.posterView.image = image
+                        //cell.posterView.image = image
                     }
                 },
                 failure: { (imageRequest, imageResponse, error) -> Void in

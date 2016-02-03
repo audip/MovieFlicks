@@ -32,7 +32,6 @@ class MovieDetailsViewController: UIViewController {
         let overview = movie["overview"] as? String
         let releaseDate = movie["release_date"] as? String
         let rating = movie["vote_average"] as? Double
-        let baseUrl = "http://image.tmdb.org/t/p/w500"
         
         overviewLabel.text = overview
         titleLabel.text = title
@@ -40,6 +39,7 @@ class MovieDetailsViewController: UIViewController {
         ratingLabel.text = String(format: "%.2f", rating!)
         
         overviewLabel.sizeToFit()
+        infoView.sizeToFit()
         
         if let posterPath = movie["poster_path"] as? String {
             
