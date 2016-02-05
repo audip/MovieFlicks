@@ -8,6 +8,7 @@ target 'MovieFlicks' do
 # This pulls in the latest version of AFNetworking >= 2.6 but less than 3.0.
 pod 'AFNetworking'
 pod 'MBProgressHUD'
+pod 'Font-Awesome-Swift'
 
 end
 
