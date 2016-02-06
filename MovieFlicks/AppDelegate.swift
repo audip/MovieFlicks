@@ -49,9 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.viewControllers = [nowPlayingNavigationController, popularNavigationController, topRatedNavigationController, upcomingNavigationController]
         
         UITabBar.appearance().translucent = true
-        //UITabBar.appearance().tintColor = UIColor(red: 245/255.0, green: 173/255.0, blue: 40/255.0, alpha: 1.0)
-        UITabBar.appearance().tintColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0)
-        UITabBar.appearance().barTintColor = UIColor(red: 239/255.0, green: 77/255.0, blue: 77/255.0, alpha: 0.6)
+        UITabBar.appearance().barTintColor = UIColor.blackColor()
+        UITabBar.appearance().tintColor = UIColor(red: 245/255.0, green: 173/255.0, blue: 40/255.0, alpha: 1.0)
+        //UITabBar.appearance().tintColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0)
+        //UITabBar.appearance().barTintColor = UIColor(red: 239/255.0, green: 77/255.0, blue: 77/255.0, alpha: 0.6)
 
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
