@@ -35,6 +35,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         
+        // change title color and drop the shadow like it's hot
+        let shadow = NSShadow();
+        shadow.shadowColor = UIColor.blackColor();
+        shadow.shadowOffset = CGSizeMake(1,2);
+        navigationController!.navigationBar.titleTextAttributes = NSDictionary(objects: [UIColor.whiteColor(), shadow], forKeys: [NSForegroundColorAttributeName, NSShadowAttributeName]) as! [String : AnyObject];
+        
         self.nwerrorView.hidden = true
         tableView.dataSource = self
         tableView.delegate = self
