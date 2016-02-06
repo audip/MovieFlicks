@@ -21,9 +21,14 @@
                                 <color key="separatorColor" red="0.83137254901960778" green="0.83137254901960778" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.1843137255" green="0.20000000000000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.1843137255" green="0.20000000000000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="Irs-lm-7De">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="140" id="LKH-SM-cie" customClass="MovieCell" customModule="MovieFlicks" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="140"/>
+                                        <rect key="frame" x="0.0" y="72" width="320" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKH-SM-cie" id="3pK-r9-WuZ">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="139.5"/>
@@ -111,6 +116,7 @@
                     <navigationItem key="navigationItem" title="MOVIE FLICKS HOME" id="957-iJ-nsK"/>
                     <connections>
                         <outlet property="nwerrorView" destination="D07-U6-bnG" id="YiY-pB-io0"/>
+                        <outlet property="searchBar" destination="Irs-lm-7De" id="9Gr-yx-YEf"/>
                         <outlet property="tableView" destination="gp3-Ci-F3K" id="t7x-my-4vC"/>
                     </connections>
                 </viewController>
