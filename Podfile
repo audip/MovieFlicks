@@ -9,6 +9,7 @@ target 'MovieFlicks' do
 pod 'AFNetworking'
 pod 'MBProgressHUD'
 pod 'Font-Awesome-Swift'
+pod 'YouTubePlayer'
 
 end
 
