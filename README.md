@@ -67,7 +67,7 @@ Challenges faced were mostly towards passing data from one segue to another, whi
 
 **Movie Flicks** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **5** hours spent in total
+Time spent: **8** hours spent in total
 
 ## User Stories
 
@@ -86,11 +86,12 @@ The following **additional** features are implemented:
 
 - [x] User can select from additional end points from tab bar: **Popular** & **Upcoming**
 - [x] Tab Bar is customized to the app design style
+- [x] User can now search for movies
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Ways to customize Tab Bar & Navigation Bar
+2. How can other iOS capabilities be incorporated in Flicks app
 
 ## Video Walkthrough
 
