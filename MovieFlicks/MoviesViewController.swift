@@ -168,15 +168,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let releaseDate = movie["release_date"] as! String
         
-//        if let posterPath = movie["poster_path"] as? String {
-//            let posterUrl = NSURL(string: baseUrl + posterPath)
-//            cell.posterView.setImageWithURL(posterUrl!)
-//        }
-//        else {
-//            // No poster image. Can either set to nil (no image) or a default movie poster image
-//            // that you include as an asset
-//            cell.posterView.image = nil
-//        }
+        if let posterPath = movie["poster_path"] as? String {
+            let posterUrl = NSURL(string: baseUrl + posterPath)
+            cell.posterView.setImageWithURL(posterUrl!)
+        }
+        else {
+            // No poster image. Can either set to nil (no image) or a default movie poster image
+            // that you include as an asset
+            cell.posterView.image = nil
+        }
         
         cell.titleLabel.text = mTitle
         cell.overviewLabel.text = overview
@@ -185,7 +185,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         UIView.animateWithDuration(0.5, delay: 0.2, options: .CurveEaseOut, animations:
             {
-                //cell.posterView.alpha = 1.0
+                cell.posterView.alpha = 1.0
                 cell.titleLabel.alpha = 1.0
                 cell.overviewLabel.alpha = 1.0
                 cell.ratingLabel.alpha = 1.0
@@ -196,38 +196,38 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 (finished:Bool) in
             }
         )
-        if let posterPath = movie["poster_path"] as? String {
-            //let posterUrl = NSURL(string: baseUrl + posterPath)
-            //cell.posterView.setImageWithURL(posterUrl!)
-            let imageRequest = NSURLRequest(URL: NSURL(string: baseUrl + posterPath)!)
-
-            cell.posterView.setImageWithURLRequest(
-                imageRequest,
-                placeholderImage: nil,
-                success: { (imageRequest, imageResponse, image) -> Void in
-                
-                    // imageResponse will be nil if the image is cached
-                    if imageResponse != nil {
-                        print("Image was NOT cached, fade in image")
-                        cell.posterView.alpha = 0.0
-                        cell.posterView.image = image
-                        UIView.animateWithDuration(0.5, animations: { () -> Void in
-                            cell.posterView.alpha = 1.0
-                        })
-                    } else {
-                        print("Image was cached so just update the image")
-                        //cell.posterView.image = image
-                    }
-                },
-                failure: { (imageRequest, imageResponse, error) -> Void in
-                    // do something for the failure condition
-            })
-
-        } else {
-                // No poster image. Can either set to nil (no image) or a default movie poster image
-                // that you include as an asset
-                cell.posterView.image = nil
-        }
+//        if let posterPath = movie["poster_path"] as? String {
+//            //let posterUrl = NSURL(string: baseUrl + posterPath)
+//            //cell.posterView.setImageWithURL(posterUrl!)
+//            let imageRequest = NSURLRequest(URL: NSURL(string: baseUrl + posterPath)!)
+//
+//            cell.posterView.setImageWithURLRequest(
+//                imageRequest,
+//                placeholderImage: nil,
+//                success: { (imageRequest, imageResponse, image) -> Void in
+//                
+//                    // imageResponse will be nil if the image is cached
+//                    if imageResponse != nil {
+//                        print("Image was NOT cached, fade in image")
+//                        //cell.posterView.alpha = 0.0
+//                        cell.posterView.image = image
+//                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+//                            cell.posterView.alpha = 1.0
+//                        })
+//                    } else {
+//                        print("Image was cached so just update the image")
+//                        cell.posterView.image = image
+//                    }
+//                },
+//                failure: { (imageRequest, imageResponse, error) -> Void in
+//                    // do something for the failure condition
+//            })
+//
+//        } else {
+//                // No poster image. Can either set to nil (no image) or a default movie poster image
+//                // that you include as an asset
+//                cell.posterView.image = nil
+//        }
         
         //print("row \(indexPath.row)")
         return cell
