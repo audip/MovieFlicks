@@ -11,13 +11,15 @@ import AFNetworking
 import MBProgressHUD
 
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nwerrorView: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [NSDictionary]?
-    var data: NSArray = []
+    var filteredData: [NSDictionary]?
+    
     var defaults = NSUserDefaults.standardUserDefaults()
     var endpoint: String!
     
@@ -36,6 +38,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         self.nwerrorView.hidden = true
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
@@ -65,7 +68,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             //print("response: \(responseDictionary)")
                             
                             self.movies = responseDictionary["results"] as! [NSDictionary]
-                            
+                            self.filteredData = self.movies
                     }
                 } else {
                     self.nwerrorView.hidden = false
@@ -114,7 +117,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             //print("response: \(responseDictionary)")
                             
                             self.movies = responseDictionary["results"] as! [NSDictionary]
-                            
                         }
                 }
                 // Reload the tableView now that there is new data
@@ -129,7 +131,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let movies = movies {
+        if let movies = filteredData {
             //print(movies.count)
             return movies.count
         } else {
@@ -153,7 +155,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.selectionStyle = .None
 
         
-        let movie = movies![indexPath.row]
+        let movie = filteredData![indexPath.row]
         let mTitle = movie["title"] as! String
         let overview = movie["overview"] as! String
         let rating = movie["vote_average"] as! Double
@@ -224,6 +226,42 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         //print("row \(indexPath.row)")
         return cell
     }
+    
+    // This method updates filteredData based on the text in the Search Box
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        if searchText.isEmpty {
+            filteredData = movies
+        } else {
+            // The user has entered text into the search box
+            // Use the filter method to iterate over all items in the data array
+            // For each item, return true if the item should be included and false if the
+            // item should NOT be included
+            filteredData = movies!.filter({(dataItem: NSDictionary) -> Bool in
+                // If dataItem matches the searchText, return true to include it
+                let title = dataItem["title"] as! String
+                if title.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                    return true
+                } else {
+                    return false
+                }
+            })
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        filteredData = movies
+        tableView.reloadData()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -233,7 +271,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         let cell = sender as! UITableViewCell
         let indexPath = tableView.indexPathForCell(cell)
-        let movie = movies![indexPath!.row]
+        let movie = filteredData![indexPath!.row]
         
         let movieDetailsViewController = segue.destinationViewController as! MovieDetailsViewController
         movieDetailsViewController.movie = movie
