@@ -226,6 +226,29 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         //print("row \(indexPath.row)")
         return cell
     }
+    
+    // This method updates filteredData based on the text in the Search Box
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        if searchText.isEmpty {
+            filteredData = movies
+        } else {
+            // The user has entered text into the search box
+            // Use the filter method to iterate over all items in the data array
+            // For each item, return true if the item should be included and false if the
+            // item should NOT be included
+            filteredData = movies!.filter({(dataItem: NSDictionary) -> Bool in
+                // If dataItem matches the searchText, return true to include it
+                let title = dataItem["title"] as! String
+                if title.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                    return true
+                } else {
+                    return false
+                }
+            })
+        }
+        tableView.reloadData()
+    }
     /*
     // MARK: - Navigation
 
