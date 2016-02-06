@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Font_Awesome_Swift
 
 class MovieDetailsViewController: UIViewController {
 
@@ -17,6 +18,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var backdropView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var yearView: UIImageView!
+    @IBOutlet weak var ratingView: UIImageView!
     
     let defaults = NSUserDefaults.standardUserDefaults()
     
@@ -32,6 +35,9 @@ class MovieDetailsViewController: UIViewController {
         let overview = movie["overview"] as? String
         let releaseDate = movie["release_date"] as? String
         let rating = movie["vote_average"] as? Double
+        
+        yearView.setFAIconWithName(FAType.FACalendar, textColor: UIColor.whiteColor())
+        ratingView.setFAIconWithName(FAType.FAStar, textColor: UIColor(red: 245/255.0, green: 173/255.0, blue: 40/255.0, alpha: 1.0))
         
         overviewLabel.text = overview
         titleLabel.text = title

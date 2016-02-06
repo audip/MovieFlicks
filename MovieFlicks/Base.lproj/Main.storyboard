@@ -203,9 +203,11 @@
                         <outlet property="infoView" destination="ndf-j5-Ju7" id="0Rm-Xp-dCQ"/>
                         <outlet property="overviewLabel" destination="UJT-d2-ZqG" id="Df6-ap-hA3"/>
                         <outlet property="ratingLabel" destination="NPi-cZ-lgn" id="KMr-jl-n73"/>
+                        <outlet property="ratingView" destination="azy-xm-TDm" id="Nw6-K9-efF"/>
                         <outlet property="scrollView" destination="bz6-Fs-owT" id="XIi-t0-ZpI"/>
                         <outlet property="titleLabel" destination="M9A-lb-rzK" id="BGc-aL-jli"/>
                         <outlet property="yearLabel" destination="WbS-Af-VX7" id="W21-Lb-6ri"/>
+                        <outlet property="yearView" destination="2ad-D8-l9d" id="dZK-u0-DoI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZRB-Kk-sZZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
